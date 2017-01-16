@@ -16,7 +16,6 @@
 
 package org.symphonyoss.integration.webhook.universal;
 
-import static java.util.Collections.EMPTY_MAP;
 import static org.junit.Assert.assertEquals;
 
 import org.symphonyoss.integration.entity.MessageMLParseException;
@@ -28,6 +27,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,13 +58,13 @@ public class UniversalWebHookIntegrationTest {
 
   @Test(expected = MessageMLParseException.class)
   public void testInvalidBody() throws WebHookParseException {
-    WebHookPayload payload = new WebHookPayload(EMPTY_MAP, EMPTY_MAP, INVALID_MESSAGEML);
+    WebHookPayload payload = new WebHookPayload(Collections.<String, String>emptyMap(), Collections.<String, String>emptyMap(), INVALID_MESSAGEML);
     universalWebHookIntegration.parse(payload);
   }
 
   @Test(expected = MessageMLParseException.class)
   public void testEmptyForm() throws WebHookParseException {
-    WebHookPayload payload = new WebHookPayload(EMPTY_MAP, EMPTY_MAP, null);
+    WebHookPayload payload = new WebHookPayload(Collections.<String, String>emptyMap(), Collections.<String, String>emptyMap(), null);
     universalWebHookIntegration.parse(payload);
   }
 
@@ -73,13 +73,13 @@ public class UniversalWebHookIntegrationTest {
     Map<String, String> parameters = new HashMap<>();
     parameters.put(UniversalWebHookIntegration.PAYLOAD, INVALID_MESSAGEML);
 
-    WebHookPayload payload = new WebHookPayload(parameters, EMPTY_MAP, null);
+    WebHookPayload payload = new WebHookPayload(parameters, Collections.<String, String>emptyMap(), null);
     universalWebHookIntegration.parse(payload);
   }
 
   @Test
   public void testValidBody() throws WebHookParseException {
-    WebHookPayload payload = new WebHookPayload(EMPTY_MAP, EMPTY_MAP, VALID_MESSAGEML);
+    WebHookPayload payload = new WebHookPayload(Collections.<String, String>emptyMap(), Collections.<String, String>emptyMap(), VALID_MESSAGEML);
     String result = universalWebHookIntegration.parse(payload);
     assertEquals(VALID_MESSAGEML, result);
   }
@@ -89,7 +89,7 @@ public class UniversalWebHookIntegrationTest {
     Map<String, String> parameters = new HashMap<>();
     parameters.put(UniversalWebHookIntegration.PAYLOAD, VALID_MESSAGEML);
 
-    WebHookPayload payload = new WebHookPayload(parameters, EMPTY_MAP, null);
+    WebHookPayload payload = new WebHookPayload(parameters, Collections.<String, String>emptyMap(), null);
     String result = universalWebHookIntegration.parse(payload);
     assertEquals(VALID_MESSAGEML, result);
   }
