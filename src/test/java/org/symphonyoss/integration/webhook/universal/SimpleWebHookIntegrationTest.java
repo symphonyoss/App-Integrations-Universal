@@ -34,7 +34,7 @@ import java.util.Map;
 /**
  * Created by rsanchez on 25/08/16.
  */
-public class UniversalWebHookIntegrationTest {
+public class SimpleWebHookIntegrationTest {
 
   private static final String INVALID_MESSAGEML = "<messageML><mention email=\"rsanchez@symphony"
       + ".com\"/> created SAM-25 (<a href=\"https://whiteam1.atlassian.net/browse/SAM-25\"/>) "
@@ -46,51 +46,51 @@ public class UniversalWebHookIntegrationTest {
       + "(<b>Highest</b> Story in Sample 1 with labels &quot;production&quot;)<br/>Description: Issue "
       + "Test<br/>Assignee: <mention email=\"rsanchez@symphony.com\"/></messageML>";
 
-  private UniversalWebHookIntegration universalWebHookIntegration = new UniversalWebHookIntegration();
+  private SimpleWebHookIntegration simpleWebHookIntegration = new SimpleWebHookIntegration();
 
   private MessageMLParser parser = new MessageMLParser();
 
   @Before
   public void setup() {
     this.parser.init();
-    ReflectionTestUtils.setField(universalWebHookIntegration, "parser", parser);
+    ReflectionTestUtils.setField(simpleWebHookIntegration, "parser", parser);
   }
 
   @Test(expected = MessageMLParseException.class)
   public void testInvalidBody() throws WebHookParseException {
     WebHookPayload payload = new WebHookPayload(Collections.<String, String>emptyMap(), Collections.<String, String>emptyMap(), INVALID_MESSAGEML);
-    universalWebHookIntegration.parse(payload);
+    simpleWebHookIntegration.parse(payload);
   }
 
   @Test(expected = MessageMLParseException.class)
   public void testEmptyForm() throws WebHookParseException {
     WebHookPayload payload = new WebHookPayload(Collections.<String, String>emptyMap(), Collections.<String, String>emptyMap(), null);
-    universalWebHookIntegration.parse(payload);
+    simpleWebHookIntegration.parse(payload);
   }
 
   @Test(expected = MessageMLParseException.class)
   public void testInvalidForm() throws WebHookParseException {
     Map<String, String> parameters = new HashMap<>();
-    parameters.put(UniversalWebHookIntegration.PAYLOAD, INVALID_MESSAGEML);
+    parameters.put(SimpleWebHookIntegration.PAYLOAD, INVALID_MESSAGEML);
 
     WebHookPayload payload = new WebHookPayload(parameters, Collections.<String, String>emptyMap(), null);
-    universalWebHookIntegration.parse(payload);
+    simpleWebHookIntegration.parse(payload);
   }
 
   @Test
   public void testValidBody() throws WebHookParseException {
     WebHookPayload payload = new WebHookPayload(Collections.<String, String>emptyMap(), Collections.<String, String>emptyMap(), VALID_MESSAGEML);
-    String result = universalWebHookIntegration.parse(payload);
+    String result = simpleWebHookIntegration.parse(payload);
     assertEquals(VALID_MESSAGEML, result);
   }
 
   @Test
   public void testValidForm() throws WebHookParseException {
     Map<String, String> parameters = new HashMap<>();
-    parameters.put(UniversalWebHookIntegration.PAYLOAD, VALID_MESSAGEML);
+    parameters.put(SimpleWebHookIntegration.PAYLOAD, VALID_MESSAGEML);
 
     WebHookPayload payload = new WebHookPayload(parameters, Collections.<String, String>emptyMap(), null);
-    String result = universalWebHookIntegration.parse(payload);
+    String result = simpleWebHookIntegration.parse(payload);
     assertEquals(VALID_MESSAGEML, result);
   }
 }

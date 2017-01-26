@@ -30,7 +30,7 @@ import org.springframework.stereotype.Component;
  * Created by rsanchez on 24/08/16.
  */
 @Component
-public class UniversalWebHookIntegration extends WebHookIntegration {
+public class SimpleWebHookIntegration extends WebHookIntegration {
 
   public static final String PAYLOAD = "payload";
 
