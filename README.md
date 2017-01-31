@@ -7,10 +7,11 @@ The Universal Webhook Integration enables you to send messages directly from any
 If you have a service that can be configured to send webhooks, all you have to do is point it to the URL you generate in the Universal Webhook Integration configuration pane and then format a message in messageML.
 
 ## What formats and events it support and what it produces
-Every integration will get a message sent in the <messageML></messageML> format and will convert it into an "entity" before it reaches the Symphony platform.
+Every integration will get a message sent in a specific format (depending on what system is it dealing with) and it will usually convert it into an "entity" before it reaches the Symphony platform.
 It will also, usually, identify the kind of message it will deal with based on an "event" identifier, that varies based on which system is it integrating with.
 
-The Universal Webhook does not support any special events, and it merely forwards the message received (if valid). This is a natural approach because it's not meant do be specific in any way, and will support simple messages only, with basic formatting.
+The Universal Webhook in the other hand does not support any special events, and it merely forwards the message received (if valid). 
+It deals with messages in the `<messageML></messageML>` format only.
 
 The validation it submits the message will enforce the rules presented [here](https://rest-api.symphony.com/docs/message-format/)
 
@@ -42,7 +43,7 @@ You can also send tables:
  
 </messageML>
 ```
-* What kind of entity will it generate (same as above)
+* What kind of entity will it generate (exactly the same as above)
 ```sh
 <messageML>
 This is an example of the sort of text that you can fit within the Universal Webhook Integration. Your service can post updates here!
