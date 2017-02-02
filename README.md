@@ -15,7 +15,6 @@ It deals with messages in the `<messageML></messageML>` format only.
 
 The validation it submits the message will enforce the rules presented [here](https://rest-api.symphony.com/docs/message-format/)
 
-Below is an example of:
 #### What sort of message you can send through the Universal Webhook Integration
 ```sh
 <messageML>
