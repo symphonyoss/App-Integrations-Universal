@@ -11,64 +11,37 @@ Every integration will get a message sent in a specific format (depending on wha
 It will also, usually, identify the kind of message it will deal with based on an "event" identifier, that varies based on which system is it integrating with.
 
 The Universal Webhook in the other hand does not support any special events, and it merely forwards the message received (if valid). 
-It deals with messages in the `<messageML></messageML>` format only.
+It deals with messages in the `xml` and `x-www-form-urlencode` formats.
 
-The validation it submits the message will enforce the rules presented [here](https://rest-api.symphony.com/docs/message-format/)
+* If you chose `xml`, you'll need to set the Content-Type to `application/xml` and submit the messageML payload in the message body.
+
+* If you chose `x-www-form-urlencode`, you'll need to set the Content-Type to `application/x-www-form-urlencoded` and submit the messageML payload in the "payload" form field.
+
+All messages need to be compliant with the Symphony MessageML format presented [here](https://rest-api.symphony.com/docs/message-format/)
 
 #### What sort of message you can send through the Universal Webhook Integration
 ```sh
 <messageML>
-This is an example of the sort of text that you can fit within the Universal Webhook Integration. Your service can post updates here!
-<br />
+This is an example of the sort of text that you can fit within the Universal Webhook Integration. Your service can post updates here!<br/>
 
-<b>You can also bold me</b>: Or not.
-<br />
- 
-<b>You can submit links as well: </b>
-<a href="https://google.com" />
- 
-<i> you can also make text render in italic font </i>
-<br />Labels can also come through: <hash tag="label"/> and you can make tickers appear too: <cash tag="GOOG"/>
- 
-You can also directly mention people using email matching: <mention email="vincent@symphony.com"/>
-<br />
-You can also send lists:
-<ul><li>text</li></ul>
- 
-<br />
-You can also send tables:
- 
-<table><tr><td>text</td></tr></table>
- 
+<b>You can also bold me</b>: Or not.<br/>
+
+<b>You can submit links as well: </b><a href="https://google.com" /><br/>
+
+<i>You can make text render in italic font</i><br/>
+Labels can also come through: <hash tag="label"/> and you can make tickers appear too: <cash tag="GOOG"/><br/>
+
+You can directly mention people using email matching: <mention email="vincent@symphony.com"/><br/>
+
+You can send lists too:<br/>
+<ul><li>item1</li><li>item2</li></ul><br/>
+
+You can even send tables:<br/>
+
+<table><tr><td>header1</td><td>header2</td></tr><tr><td>info1</td><td>info2</td></tr><tr><td>info1</td><td>info2</td></tr><tr><td>info1</td><td>info2</td></tr></table>
 </messageML>
 ```
-#### What kind of entity will it generate (exactly the same as above)
-```sh
-<messageML>
-This is an example of the sort of text that you can fit within the Universal Webhook Integration. Your service can post updates here!
-<br />
 
-<b>You can also bold me</b>: Or not.
-<br />
- 
-<b>You can submit links as well: </b>
-<a href="https://google.com" />
- 
-<i> you can also make text render in italic font </i>
-<br />Labels can also come through: <hash tag="label"/> and you can make tickers appear too: <cash tag="GOOG"/>
- 
-You can also directly mention people using email matching: <mention email="vincent@symphony.com"/>
-<br />
-You can also send lists:
-<ul><li>text</li></ul>
- 
-<br />
-You can also send tables:
- 
-<table><tr><td>text</td></tr></table>
- 
-</messageML>
-```
 #### What it looks like when rendered in Symphony platform
 
 ![Rendered Message](src/docs/images/sample_universal_rendered.png)
