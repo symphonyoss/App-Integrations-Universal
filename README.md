@@ -7,8 +7,7 @@ The Universal Webhook Integration enables you to send messages directly from any
 If you have a service that can be configured to send webhooks, all you have to do is point it to the URL you generate in the Universal Webhook Application available on Symphony Market, and setup your service to post webhook payloads to that URL, in messageML format.
 
 ## What formats and events it support and what it produces
-Every integration will get a message sent in a specific format (depending on what system is it dealing with) and it will usually convert it into an "entity" before it reaches the Symphony platform.
-It will also, usually, identify the kind of message it will deal with based on an "event" identifier, that varies based on which system is it integrating with.
+Every integration will receive a message sent in a specific format (depending on the system it ingests) and will usually convert it into an "entity" before it reaches the Symphony platform. It will also, usually, identify the kind of message based on an "event" identifier, which varies based on the third-party system.
 
 The Universal Webhook in the other hand does not support any special events, and it merely forwards the message received (if valid). 
 It deals with messages in the `xml` and `x-www-form-urlencode` formats.
@@ -45,3 +44,26 @@ You can even send tables:<br/>
 #### What it looks like when rendered in Symphony platform
 
 ![Rendered Message](src/docs/images/sample_universal_rendered.png)
+
+
+# Build instructions for the Java developer
+
+### What you’ll build
+You’ll build an integration module to be used with the [Integration Bridge](https://github.com/symphonyoss/App-Integrations-Core).
+
+If you develop a new integration, to get it up and running you'll also need to add it to the core project's web pom file.
+
+### What you’ll need
+* JDK 1.7
+* Maven 3.0.5+
+
+### Build with maven
+Universal WebHook Integration is compatible with Apache Maven 3.0.5 or above. If you don’t already have Maven installed you can follow the instructions at maven.apache.org.
+
+To start from scratch, do the following:
+
+1. Clone the source repository using Git: `git clone git@github.com:symphonyoss/App-Integrations-Universal.git`
+2. cd into _App-Integrations-Universal_
+3. Build using maven: `mvn clean install`
+
+Notes: If you don't have access to Symphony Artifactory you should build the Commons module first to have it in your local maven repository. You can find the App-Integrations-Commons project [here](https://github.com/symphonyoss/App-Integrations-Commons)
