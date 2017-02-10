@@ -62,8 +62,8 @@ Universal WebHook Integration is compatible with Apache Maven 3.0.5 or above. If
 
 To start from scratch, do the following:
 
-1. Clone the source repository using Git: `git clone git@github.com:symphonyoss/App-Integrations-Universal.git`
-2. cd into _App-Integrations-Universal_
-3. Build using maven: `mvn clean install`
-
-Notes: If you don't have access to Symphony Artifactory you should build the Commons module first to have it in your local maven repository. You can find the App-Integrations-Commons project [here](https://github.com/symphonyoss/App-Integrations-Commons)
+1. Build the _App-Integrations-Universal_ dependencies (so you have them in your Maven local repository):
+> [_App-Integrations-Commons_](https://github.com/symphonyoss/App-Integrations-Commons)
+2. Clone the source repository using Git: `git clone git@github.com:symphonyoss/App-Integrations-Universal.git`
+3. cd into _App-Integrations-Universal_
+4. Build using maven: `mvn clean install`
