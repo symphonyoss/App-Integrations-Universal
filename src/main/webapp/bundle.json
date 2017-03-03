@@ -1,0 +1,14 @@
+{
+  "applications": [
+    {
+      "type": "sandbox",
+      "id": "devUniversalWebHookIntegration",
+      "name": "Universal Webhook",
+      "blurb": "Universal Webhook in Development Mode",
+      "publisher": "Symphony",
+      "url": "https://localhost.symphony.com/apps/universal/controller.html?configurationId=5889cdafe4b06d92cebc31e3&botUserId=7627861919708&id=devUniversalWebHookIntegration&context=apps/universal",
+      "icon": "https://localhost.symphony.com/apps/universal/img/appstore-logo.png",
+      "domain": ".symphony.com"
+    }
+  ]
+}

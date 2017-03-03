@@ -11,6 +11,11 @@
 
     <artifactId>integration-universal-whi</artifactId>
 
+    <properties>
+        <webapp.directory>universal</webapp.directory>
+        <rpm.name>universal-symphony-integration</rpm.name>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.symphonyoss</groupId>
