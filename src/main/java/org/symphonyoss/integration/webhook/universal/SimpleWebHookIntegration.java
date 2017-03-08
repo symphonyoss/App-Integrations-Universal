@@ -16,13 +16,11 @@
 
 package org.symphonyoss.integration.webhook.universal;
 
-import org.symphonyoss.integration.entity.MessageMLParser;
+import org.springframework.stereotype.Component;
+import org.symphonyoss.integration.entity.MessageMLParseException;
 import org.symphonyoss.integration.webhook.WebHookIntegration;
 import org.symphonyoss.integration.webhook.WebHookPayload;
 import org.symphonyoss.integration.webhook.exception.WebHookParseException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * Implementation of a Simple WebHook Integration.
@@ -34,9 +32,6 @@ public class SimpleWebHookIntegration extends WebHookIntegration {
 
   public static final String PAYLOAD = "payload";
 
-  @Autowired
-  private MessageMLParser parser;
-
   @Override
   public String parse(WebHookPayload input) throws WebHookParseException {
     String body = input.getBody();
@@ -45,7 +40,11 @@ public class SimpleWebHookIntegration extends WebHookIntegration {
       body = input.getParameters().get(PAYLOAD);
     }
 
-    return parser.validate(body);
+    if (body == null) {
+      throw new MessageMLParseException("Invalid message format. Message: " + input);
+    }
+
+    return body;
   }
 
 }
