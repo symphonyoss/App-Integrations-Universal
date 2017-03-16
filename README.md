@@ -1,13 +1,49 @@
 # Universal Webhook Integration
 The Universal Webhook Integration enables you to send messages directly from any service into a Symphony conversation of your choice - either a 1:1 IM with you, or a room that you are the owner of.
 
+## Run locally
+
+1. Define your certificate paths and passwords
+```
+cp local-run/env.sh.sample env.sh
+open env.sh
+```
+
+Make sure that
+- Paths and passwords are correct
+- You can reach all Symphony Pod endpoints
+- Service accounts exists and cert CNs match with account's usernames
+- `./env.sh`, `./application.yaml` and `./certs/` are ignored by Git and don't end up in any code repository
+
+2. Run the integrations
+```
+./run.sh
+```
+
+This command will create an `application.yaml` file in the project root folder, using `local-run/application.yaml.template` as template.
+
+## Expose local endpoint to a public host
+
+In order to be able to create the app in the Foundation pod, you must provide a public `App Url`; you can use [ngrok](https://ngrok.com/) (or similar) to tunnel your local connection and expose it via a public DNS:
+```
+ngrok http 8080
+```
+Your local port 8080 is now accessible via `<dynamic_id>.ngrok.io`
+
+If you have a paid subscription, you can also use
+```
+ngrok http -subdomain=my.static.subdomain 8080
+```
+
+Note. The team is working on a integration-provisioning module that will automate this process; until further notice, please contact Symphony Support to get your Symphony integration deployed on your pod.
+
 ## How it works
 If you have a service that can be configured to send webhooks, all you have to do is point it to the URL you generate in the Universal Webhook Application available on Symphony Market, and setup your service to post webhook payloads to that URL, in messageML format.
 
 ## What formats and events it support and what it produces
 Every integration will receive a message sent in a specific format (depending on the system it ingests) and will usually convert it into an "entity" before it reaches the Symphony platform. It will also, usually, identify the kind of message based on an "event" identifier, which varies based on the third-party system.
 
-The Universal Webhook in the other hand does not support any special events, and it merely forwards the message received (if valid). 
+The Universal Webhook in the other hand does not support any special events, and it merely forwards the message received (if valid).
 It deals with messages in the `xml` and `x-www-form-urlencode` formats.
 
 * If you chose `xml`, you'll need to set the Content-Type to `application/xml` and submit the messageML payload in the message body.
