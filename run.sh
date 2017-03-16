@@ -19,5 +19,4 @@ rm -rf tomcat ; mkdir tomcat
 java -Dlog4j2.outputAllToConsole=true -Dlogs.basedir=target \
 -agentlib:jdwp=transport=dt_socket,server=y,address=5000,suspend=n \
 -jar target/integration.jar \
---spring.profiles.active=hubspot \
 --server.tomcat.basedir=$PWD/tomcat
