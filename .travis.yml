@@ -31,6 +31,7 @@ addons:
     packages:
       - openjdk-8-jdk
       - maven
+      - rpm
 
 script:
 - "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ dev ]]; then mvn clean deploy --settings settings.xml ; fi"
