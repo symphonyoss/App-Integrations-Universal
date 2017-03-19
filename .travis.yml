@@ -20,15 +20,18 @@
 # under the License.
 #
 
-language: java
+sudo: required
+dist: trusty
+language: node_js
+node_js:
+  - "6.10"
 
-install: true
+addons:
+  apt:
+    packages:
+      - openjdk-8-jdk
+      - maven
+
 script:
 - "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ dev ]]; then mvn clean deploy --settings settings.xml ; fi"
-- "if [[ \"$TRAVIS_PULL_REQUEST\" != \"false\" ]]; then mvn clean install ; fi"
-
-jdk:
-  - oraclejdk8
-
-node_js:
-  - "6"
+- "if [[ \"$TRAVIS_PULL_REQUEST\" != \"false\" ]]; then mvn clean package ; fi"
