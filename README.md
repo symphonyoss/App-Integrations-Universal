@@ -1,3 +1,7 @@
+[![Symphony Software Foundation - Incubating](https://cdn.rawgit.com/symphonyoss/contrib-toolbox/master/images/ssf-badge-incubating.svg)](https://symphonyoss.atlassian.net/wiki/display/FM/Incubating)
+
+[![Build Status](https://travis-ci.org/symphonyoss/App-Integrations-Universal.svg?branch=dev)](https://travis-ci.org/symphonyoss/App-Integrations-Universal)
+
 # Universal Webhook Integration
 The Universal Webhook Integration enables you to send messages directly from any service into a Symphony conversation of your choice - either a 1:1 IM with you, or a room that you are the owner of.
 
