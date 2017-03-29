@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.symphonyoss.integration.entity.MessageMLParseException;
+import org.symphonyoss.integration.model.message.Message;
 import org.symphonyoss.integration.webhook.WebHookPayload;
 import org.symphonyoss.integration.webhook.exception.WebHookParseException;
 
@@ -48,8 +49,8 @@ public class SimpleWebHookIntegrationTest {
   @Test
   public void testValidBody() throws WebHookParseException {
     WebHookPayload payload = new WebHookPayload(Collections.<String, String>emptyMap(), Collections.<String, String>emptyMap(), VALID_MESSAGEML);
-    String result = simpleWebHookIntegration.parse(payload);
-    assertEquals(VALID_MESSAGEML, result);
+    Message result = simpleWebHookIntegration.parse(payload);
+    assertEquals(VALID_MESSAGEML, result.getMessage());
   }
 
   @Test
@@ -58,7 +59,7 @@ public class SimpleWebHookIntegrationTest {
     parameters.put(SimpleWebHookIntegration.PAYLOAD, VALID_MESSAGEML);
 
     WebHookPayload payload = new WebHookPayload(parameters, Collections.<String, String>emptyMap(), null);
-    String result = simpleWebHookIntegration.parse(payload);
-    assertEquals(VALID_MESSAGEML, result);
+    Message result = simpleWebHookIntegration.parse(payload);
+    assertEquals(VALID_MESSAGEML, result.getMessage());
   }
 }
