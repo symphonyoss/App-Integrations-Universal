@@ -3,42 +3,6 @@
 # Universal Webhook Integration
 The Universal Webhook Integration enables you to send messages directly from any service into a Symphony conversation of your choice - either a 1:1 IM with you, or a room that you are the owner of.
 
-## Run locally
-
-1. Define your certificate paths and passwords
-```
-cp local-run/env.sh.sample env.sh
-open env.sh
-```
-
-Make sure that
-- Paths and passwords are correct
-- You can reach all Symphony Pod endpoints
-- Service accounts exists and cert CNs match with account's usernames
-- `./env.sh`, `./application.yaml` and `./certs/` are ignored by Git and don't end up in any code repository
-
-2. Run the integrations
-```
-./run.sh
-```
-
-This command will create an `application.yaml` file in the project root folder, using `local-run/application.yaml.template` as template.
-
-## Expose local endpoint to a public host
-
-In order to be able to create the app in the Foundation pod, you must provide a public `App Url`; you can use [ngrok](https://ngrok.com/) (or similar) to tunnel your local connection and expose it via a public DNS:
-```
-ngrok http 8080
-```
-Your local port 8080 is now accessible via `<dynamic_id>.ngrok.io`
-
-If you have a paid subscription, you can also use
-```
-ngrok http -subdomain=my.static.subdomain 8080
-```
-
-Note. The team is working on a integration-provisioning module that will automate this process; until further notice, please contact Symphony Support to get your Symphony integration deployed on your pod.
-
 ## How it works
 If you have a service that can be configured to send webhooks, all you have to do is point it to the URL you generate in the Universal Webhook Application available on Symphony Market, and setup your service to post webhook payloads to that URL, in messageML format.
 
@@ -84,16 +48,14 @@ You can even send tables:<br/>
 
 # Build instructions for the Java developer
 
-### What you’ll build
+## What you’ll build
 You’ll build an integration module to be used with the [Integration Bridge](https://github.com/symphonyoss/App-Integrations-Core).
 
-If you develop a new integration, to get it up and running you'll also need to add it to the core project's web pom file.
-
-### What you’ll need
-* JDK 1.7
+## What you’ll need
+* JDK 1.8
 * Maven 3.0.5+
 
-### Build with maven
+## Build with maven
 Universal WebHook Integration is compatible with Apache Maven 3.0.5 or above. If you don’t already have Maven installed you can follow the instructions at maven.apache.org.
 
 To start from scratch, do the following:
@@ -103,3 +65,40 @@ To start from scratch, do the following:
 2. Clone the source repository using Git: `git clone git@github.com:symphonyoss/App-Integrations-Universal.git`
 3. cd into _App-Integrations-Universal_
 4. Build using maven: `mvn clean install`
+
+## Run locally
+
+1. Define your certificate paths and passwords
+```
+cp local-run/env.sh.sample env.sh
+open env.sh
+```
+
+Make sure that
+- Paths and passwords are correct
+- You can reach all Symphony Pod endpoints
+- Service accounts exists and cert CNs match with account's usernames. **_Note: The team is working on a integration-provisioning module that will automate this process; until further notice, please contact Symphony Support to get your Symphony integration deployed on your pod, as the pod will need an exact match of service account name, certs and app name in the pod for your app to be visible in your pod and usable._**
+- `./env.sh`, `./application.yaml` and `./certs/` are ignored by Git and don't end up in any code repository
+
+2. Run the integrations
+```
+./run.sh
+```
+
+This command will create an `application.yaml` file in the project root folder, using `local-run/application.yaml.template` as template.
+
+### Expose local endpoint to a public host
+
+In order to be able to create the app in the Foundation pod, you must provide a public `App Url`; you can use [ngrok](https://ngrok.com/) (or similar) to tunnel your local connection and expose it via a public DNS:
+```
+ngrok http 8080
+```
+Your local port 8080 is now accessible via `<dynamic_id>.ngrok.io`
+
+If you have a paid subscription, you can also use
+```
+ngrok http -subdomain=my.static.subdomain 8080
+```
+
+Note. The team is working on a integration-provisioning module that will automate this process; until further notice, please contact Symphony Support to get your Symphony integration deployed on your pod.
+
