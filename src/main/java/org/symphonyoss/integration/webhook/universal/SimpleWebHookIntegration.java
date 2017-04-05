@@ -19,6 +19,7 @@ package org.symphonyoss.integration.webhook.universal;
 import org.springframework.stereotype.Component;
 import org.symphonyoss.integration.entity.MessageMLParseException;
 import org.symphonyoss.integration.model.message.Message;
+import org.symphonyoss.integration.model.message.MessageMLVersion;
 import org.symphonyoss.integration.webhook.WebHookIntegration;
 import org.symphonyoss.integration.webhook.WebHookPayload;
 import org.symphonyoss.integration.webhook.exception.WebHookParseException;
@@ -48,6 +49,7 @@ public class SimpleWebHookIntegration extends WebHookIntegration {
     Message message = new Message();
     message.setMessage(body);
     message.setFormat(Message.FormatEnum.MESSAGEML);
+    message.setVersion(MessageMLVersion.V1);
 
     return message;
   }
