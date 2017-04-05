@@ -24,21 +24,6 @@ Make sure that
 
 This command will create an `application.yaml` file in the project root folder, using `local-run/application.yaml.template` as template.
 
-## Expose local endpoint to a public host
-
-In order to be able to create the app in the Foundation pod, you must provide a public `App Url`; you can use [ngrok](https://ngrok.com/) (or similar) to tunnel your local connection and expose it via a public DNS:
-```
-ngrok http 8080
-```
-Your local port 8080 is now accessible via `<dynamic_id>.ngrok.io`
-
-If you have a paid subscription, you can also use
-```
-ngrok http -subdomain=my.static.subdomain 8080
-```
-
-Note. The team is working on a integration-provisioning module that will automate this process; until further notice, please contact Symphony Support to get your Symphony integration deployed on your pod.
-
 ## How it works
 If you have a service that can be configured to send webhooks, all you have to do is point it to the URL you generate in the Universal Webhook Application available on Symphony Market, and setup your service to post webhook payloads to that URL, in messageML format.
 
