@@ -100,5 +100,3 @@ If you have a paid subscription, you can also use
 ngrok http -subdomain=my.static.subdomain 8080
 ```
 
-Note. The team is working on a integration-provisioning module that will automate this process; until further notice, please contact Symphony Support to get your Symphony integration deployed on your pod.
-
