@@ -90,7 +90,7 @@ Make sure that
 
 This command will create an `application.yaml` file in the project root folder, using `local-run/application.yaml.template` as template.
 
-### Expose local endpoint to a public host
+## Expose local endpoint to a public host
 
 In order to be able to create the app in the Foundation pod, you must provide a public `App Url`; you can use [ngrok](https://ngrok.com/) (or similar) to tunnel your local connection and expose it via a public DNS:
 ```
@@ -103,3 +103,37 @@ If you have a paid subscription, you can also use
 ngrok http -subdomain=my.static.subdomain 8080
 ```
 
+## Add your locally running application to the Symphony Market
+
+Adjust your [bundle.json](src/main/webapp/bundle.json) located src/main/webapp/ with the URL you are exposing via ngrok, the configuration and bot id's, and the application context.
+
+**_Note: The team is working on a integration-provisioning module that will automate this process; until further notice, please contact Symphony Support to get your configuration and bot id's.
+
+For the application context, you should always user app/<your app id> provided in the env.sh. That id should also match what you have on [application-universal.yml](src/main/resources/application-universal.yml)
+
+For instance, see apps/universal present in the URL's for the controller.html and appstore-logo.png, as well as in the **context** query parameter for the controller:
+
+```
+{
+  "applications": [
+    {
+      "type": "sandbox",
+      "id": "devUniversalWebHookIntegration",
+      "name": "Universal",
+      "blurb": "Universal Webhook Integration in Development Mode",
+      "publisher": "Symphony",
+      "url": "https://d74a790c.ngrok.io/apps/universal/controller.html?configurationId=58598bf8e4b057438e69f517&botUserId=346621040656485&id=devUniversalWebHookIntegration&context=apps/universal",
+      "icon": "https://d74a790c.ngrok.io/apps/universal/img/appstore-logo.png",
+      "domain": ".ngrok.io"
+    }
+  ]
+}
+```
+
+Access the application icon on your browser to make sure it works and to accept any unsafe certificates (if necessary). In the above example, the URL to acces is https://6f3420e6.ngrok.io/img/appstore-logo.png).
+
+**Run your application again as indicated above, to get the new bundle.js information packaged.**
+
+Launch the Symphony client on your browser, adding your bundle.js as path of the query parameters in the URL. For instance, using the Foundation Dev Pod with the above ngrok sample URL: https://foundation-dev.symphony.com?bundle=https://d74a790c.ngrok.io/apps/universal/bundle.json.
+
+Access the Symphony Market on the browser, and you should be notified to allow unauthorized apps. That is your development app added through bundle.json. Accept the notification and you should see your application in the application list, with the name and description provided in the bundle.json.
