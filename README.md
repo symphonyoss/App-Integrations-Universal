@@ -54,6 +54,9 @@ You’ll build an integration module to be used with the [Integration Bridge](ht
 ## What you’ll need
 * JDK 1.8
 * Maven 3.0.5+
+* Node 6.10
+* Gulp (globally installed)
+* Webpack (globally installed)
 
 ## Build with maven
 Universal WebHook Integration is compatible with Apache Maven 3.0.5 or above. If you don’t already have Maven installed you can follow the instructions at maven.apache.org.
