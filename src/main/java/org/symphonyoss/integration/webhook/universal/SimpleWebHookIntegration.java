@@ -24,6 +24,10 @@ import org.symphonyoss.integration.webhook.WebHookIntegration;
 import org.symphonyoss.integration.webhook.WebHookPayload;
 import org.symphonyoss.integration.webhook.exception.WebHookParseException;
 
+import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Implementation of a Simple WebHook Integration.
  *
@@ -54,4 +58,13 @@ public class SimpleWebHookIntegration extends WebHookIntegration {
     return message;
   }
 
+  /**
+   * @see WebHookIntegration#getSupportedContentTypes()
+   */
+  @Override
+  public List<MediaType> getSupportedContentTypes() {
+    List<MediaType> supportedContentTypes = new ArrayList<>();
+    supportedContentTypes.add(MediaType.WILDCARD_TYPE);
+    return supportedContentTypes;
+  }
 }
