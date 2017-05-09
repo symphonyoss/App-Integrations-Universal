@@ -1,0 +1,7 @@
+<messageML>
+<div class="entity" data-entity-id="testMessage">
+<header><span>${entity['testMessage'].message.header}</span></header>
+<body><div class="labelBackground badge"><span>${entity['testMessage'].message.body}</span></div></body>
+</card>
+</div>
+</messageML>
