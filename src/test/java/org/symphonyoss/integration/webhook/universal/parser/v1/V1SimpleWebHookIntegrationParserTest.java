@@ -25,7 +25,9 @@ import org.symphonyoss.integration.model.message.Message;
 import org.symphonyoss.integration.model.message.MessageMLVersion;
 import org.symphonyoss.integration.webhook.WebHookPayload;
 import org.symphonyoss.integration.webhook.exception.WebHookParseException;
+import org.symphonyoss.integration.webhook.universal.FileUtils;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,10 +38,7 @@ import java.util.Map;
  */
 public class V1SimpleWebHookIntegrationParserTest {
 
-  private static final String VALID_MESSAGEML = "<messageML><mention email=\"rsanchez@symphony"
-      + ".com\"/> created SAM-25 (<a href=\"https://whiteam1.atlassian.net/browse/SAM-25\"/>) "
-      + "(<b>Highest</b> Story in Sample 1 with labels &quot;production&quot;)<br/>Description: Issue "
-      + "Test<br/>Assignee: <mention email=\"rsanchez@symphony.com\"/></messageML>";
+  private static final String VALID_MESSAGEML_FILENAME = "v1MessageML.xml";
 
   private V1SimpleWebHookIntegrationParser parser = new V1SimpleWebHookIntegrationParser();
 
@@ -55,22 +54,25 @@ public class V1SimpleWebHookIntegrationParserTest {
   }
 
   @Test
-  public void testValidBody() throws WebHookParseException {
-    WebHookPayload payload = new WebHookPayload(Collections.<String, String>emptyMap(), Collections.<String, String>emptyMap(), VALID_MESSAGEML);
+  public void testValidBody() throws WebHookParseException, IOException {
+    String messageML = FileUtils.readMessageMLFile(VALID_MESSAGEML_FILENAME);
+    WebHookPayload payload = new WebHookPayload(Collections.<String, String>emptyMap(), Collections.<String, String>emptyMap(), messageML);
 
     Message result = parser.parse(payload);
-    assertEquals(VALID_MESSAGEML, result.getMessage());
+    assertEquals(messageML, result.getMessage());
     assertEquals(MessageMLVersion.V1, result.getVersion());
   }
 
   @Test
-  public void testValidForm() throws WebHookParseException {
+  public void testValidForm() throws WebHookParseException, IOException {
+    String messageML = FileUtils.readMessageMLFile(VALID_MESSAGEML_FILENAME);
+
     Map<String, String> parameters = new HashMap<>();
-    parameters.put(V1SimpleWebHookIntegrationParser.PAYLOAD, VALID_MESSAGEML);
+    parameters.put(V1SimpleWebHookIntegrationParser.PAYLOAD, messageML);
 
     WebHookPayload payload = new WebHookPayload(parameters, Collections.<String, String>emptyMap(), null);
     Message result = parser.parse(payload);
-    assertEquals(VALID_MESSAGEML, result.getMessage());
+    assertEquals(messageML, result.getMessage());
     assertEquals(MessageMLVersion.V1, result.getVersion());
   }
 

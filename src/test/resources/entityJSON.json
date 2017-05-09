@@ -1,0 +1,12 @@
+{
+  "testMessage": {
+    "type": "com.symphony.integration.test.event.v2.testMessage",
+    "version": "1.0",
+    "message": {
+      "type": "com.symphony.integration.test.event.v2.testMessage",
+      "version": "1.0",
+      "header": "New message",
+      "body": "Message body"
+    }
+  }
+}
