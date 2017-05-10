@@ -20,8 +20,8 @@ It deals with messages in the `xml`, `x-www-form-urlencode`, and `form-data` for
 template in the "message" form field and the Entity JSON in the "data" form field. This option is only available when
  the Integration Bridge posts messages through the Agent that has version equal or greater than '1.46.0'
 
-All messages need to be compliant with the Symphony MessageML v1 [here](https://rest-api.symphony.com/docs/message-format/)
-or Symphony MessageML v2 [here](https://symphonyoss.atlassian.net/wiki/display/WGFOS/MessageML+V2+Draft+Proposal+-+For+Discussion)
+All messages need to be compliant with the Symphony [MessageML v1](https://rest-api.symphony.com/docs/message-format/)
+or [MessageML v2](https://symphonyoss.atlassian.net/wiki/display/WGFOS/MessageML+V2+Draft+Proposal+-+For+Discussion)
 
 #### What sort of message you can send through the Universal Webhook Integration
 
