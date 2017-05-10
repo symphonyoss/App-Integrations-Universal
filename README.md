@@ -7,18 +7,26 @@ The Universal Webhook Integration enables you to send messages directly from any
 If you have a service that can be configured to send webhooks, all you have to do is point it to the URL you generate in the Universal Webhook Application available on Symphony Market, and setup your service to post webhook payloads to that URL, in messageML format.
 
 ## What formats and events it support and what it produces
-Every integration will receive a message sent in a specific format (depending on the system it ingests) and will usually convert it into an "entity" before it reaches the Symphony platform. It will also, usually, identify the kind of message based on an "event" identifier, which varies based on the third-party system.
+Every integration will receive a message sent in a specific format (depending on the system it ingests) and will usually convert it into a Symphony MessageML before it reaches the Symphony platform. It will also, usually, identify the kind of message based on an "event" identifier, which varies based on the third-party system.
 
 The Universal Webhook in the other hand does not support any special events, and it merely forwards the message received (if valid).
-It deals with messages in the `xml` and `x-www-form-urlencode` formats.
+It deals with messages in the `xml`, `x-www-form-urlencode`, and `form-data` formats.
 
 * If you chose `xml`, you'll need to set the Content-Type to `application/xml` and submit the messageML payload in the message body.
 
 * If you chose `x-www-form-urlencode`, you'll need to set the Content-Type to `application/x-www-form-urlencoded` and submit the messageML payload in the "payload" form field.
 
-All messages need to be compliant with the Symphony MessageML format presented [here](https://rest-api.symphony.com/docs/message-format/)
+* If you chose `form-data`, you'll need to set the Content-Type to `multipart/form-data` and submit the messageML v2
+template in the "message" form field and the Entity JSON in the "data" form field. This option is only available when
+ the Integration Bridge posts messages through the Agent that has version equal or greater than '1.46.0'
+
+All messages need to be compliant with the Symphony MessageML v1 [here](https://rest-api.symphony.com/docs/message-format/)
+or Symphony MessageML v2 [here](https://symphonyoss.atlassian.net/wiki/display/WGFOS/MessageML+V2+Draft+Proposal+-+For+Discussion)
 
 #### What sort of message you can send through the Universal Webhook Integration
+
+* MessageML v1
+
 ```sh
 <messageML>
 This is an example of the sort of text that you can fit within the Universal Webhook Integration. Your service can post updates here!<br/>
@@ -41,10 +49,50 @@ You can even send tables:<br/>
 </messageML>
 ```
 
+* MessageML v2
+
+```xml
+<messageML>
+    <div class="entity" data-entity-id="zapierPostMessage">
+        <card class="barStyle" iconSrc="${entity['zapierPostMessage'].message.icon}">
+            <header>
+                <span>${entity['zapierPostMessage'].message.header}</span>
+            </header>
+            <body>
+                <div class="labelBackground badge">
+                    <span>${entity['zapierPostMessage'].message.body}</span>
+                </div>
+            </body>
+        </card>
+    </div>
+</messageML>
+```
+
+```json
+{
+	"zapierPostMessage": {
+		"type": "com.symphony.integration.zapier.event.v2.postMessage",
+		"version": "1.0",
+		"message" : {
+		    "type": "com.symphony.integration.zapier.event.message",
+		    "version": "1.0",
+		    "header": "Test Message Header: Trello card Test Trello created",
+		    "body": "Test Message Body:<br/>* Card Test Trello have just been created",
+		    "icon": "http://icon.com/icon"
+		}
+	}
+}
+```
+
 #### What it looks like when rendered in Symphony platform
+
+* MessageML v1
 
 ![Rendered Message](src/docs/images/sample_universal_rendered.png)
 
+* MessageML v2
+
+![Rendered MessageML v2](src/docs/images/sample_universal_rendered_v2.png)
 
 # Build instructions for the Java developer
 
