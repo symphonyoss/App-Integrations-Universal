@@ -155,7 +155,7 @@ ngrok http -subdomain=my.static.subdomain 8080
 
 Adjust your [bundle.json](src/main/webapp/bundle.json) located src/main/webapp/ with the URL you are exposing via ngrok, the configuration and bot id's, and the application context.
 
-**_Note: The team is working on a integration-provisioning module that will automate this process; until further notice, please contact Symphony Support to get your configuration and bot id's.
+**_Note: The team is working on an integration-provisioning module that will automate this process; until further notice, please contact Symphony Support to get your configuration and bot id's.
 
 For the application context, you should always user app/<your app id> provided in the env.sh. That id should also match what you have on [application-universal.yml](src/main/resources/application-universal.yml)
 
