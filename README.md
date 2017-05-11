@@ -7,18 +7,26 @@ The Universal Webhook Integration enables you to send messages directly from any
 If you have a service that can be configured to send webhooks, all you have to do is point it to the URL you generate in the Universal Webhook Application available on Symphony Market, and setup your service to post webhook payloads to that URL, in messageML format.
 
 ## What formats and events it support and what it produces
-Every integration will receive a message sent in a specific format (depending on the system it ingests) and will usually convert it into an "entity" before it reaches the Symphony platform. It will also, usually, identify the kind of message based on an "event" identifier, which varies based on the third-party system.
+Every integration will receive a message sent in a specific format (depending on the system it ingests) and will usually convert it into a Symphony MessageML before it reaches the Symphony platform. It will also, usually, identify the kind of message based on an "event" identifier, which varies based on the third-party system.
 
 The Universal Webhook in the other hand does not support any special events, and it merely forwards the message received (if valid).
-It deals with messages in the `xml` and `x-www-form-urlencode` formats.
+It deals with messages in the `xml`, `x-www-form-urlencode`, and `form-data` formats.
 
 * If you chose `xml`, you'll need to set the Content-Type to `application/xml` and submit the messageML payload in the message body.
 
 * If you chose `x-www-form-urlencode`, you'll need to set the Content-Type to `application/x-www-form-urlencoded` and submit the messageML payload in the "payload" form field.
 
-All messages need to be compliant with the Symphony MessageML format presented [here](https://rest-api.symphony.com/docs/message-format/)
+* If you chose `form-data`, you'll need to set the Content-Type to `multipart/form-data` and submit the messageML v2
+template in the "message" form field and the Entity JSON in the "data" form field. This option is only available when
+ the Integration Bridge posts messages through the Agent that has version equal or greater than '1.46.0'
+
+All messages need to be compliant with the Symphony [MessageML v1](https://rest-api.symphony.com/docs/message-format/)
+or [MessageML v2](https://symphonyoss.atlassian.net/wiki/display/WGFOS/MessageML+V2+Draft+Proposal+-+For+Discussion)
 
 #### What sort of message you can send through the Universal Webhook Integration
+
+* MessageML v1
+
 ```sh
 <messageML>
 This is an example of the sort of text that you can fit within the Universal Webhook Integration. Your service can post updates here!<br/>
@@ -41,10 +49,50 @@ You can even send tables:<br/>
 </messageML>
 ```
 
+* MessageML v2
+
+```xml
+<messageML>
+    <div class="entity" data-entity-id="zapierPostMessage">
+        <card class="barStyle" iconSrc="${entity['zapierPostMessage'].message.icon}">
+            <header>
+                <span>${entity['zapierPostMessage'].message.header}</span>
+            </header>
+            <body>
+                <div class="labelBackground badge">
+                    <span>${entity['zapierPostMessage'].message.body}</span>
+                </div>
+            </body>
+        </card>
+    </div>
+</messageML>
+```
+
+```json
+{
+	"zapierPostMessage": {
+		"type": "com.symphony.integration.zapier.event.v2.postMessage",
+		"version": "1.0",
+		"message" : {
+		    "type": "com.symphony.integration.zapier.event.message",
+		    "version": "1.0",
+		    "header": "Test Message Header: Trello card Test Trello created",
+		    "body": "Test Message Body:<br/>* Card Test Trello have just been created",
+		    "icon": "http://icon.com/icon"
+		}
+	}
+}
+```
+
 #### What it looks like when rendered in Symphony platform
+
+* MessageML v1
 
 ![Rendered Message](src/docs/images/sample_universal_rendered.png)
 
+* MessageML v2
+
+![Rendered MessageML v2](src/docs/images/sample_universal_rendered_v2.png)
 
 # Build instructions for the Java developer
 
@@ -52,11 +100,11 @@ You can even send tables:<br/>
 You’ll build an integration module to be used with the [Integration Bridge](https://github.com/symphonyoss/App-Integrations-Core).
 
 ## What you’ll need
-* JDK 1.8
-* Maven 3.0.5+
-* Node 6.10
-* Gulp (globally installed)
-* Webpack (globally installed)
+* [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+* [Maven 3.0.5+](https://maven.apache.org/download.cgi)
+* [Node 6.10](https://nodejs.org/en/)
+* [Gulp (globally installed)](http://gulpjs.com/)
+* [Webpack (globally installed)](https://webpack.github.io/)
 
 ## Build with maven
 Universal WebHook Integration is compatible with Apache Maven 3.0.5 or above. If you don’t already have Maven installed you can follow the instructions at maven.apache.org.
@@ -80,7 +128,7 @@ open env.sh
 Make sure that
 - Paths and passwords are correct
 - You can reach all Symphony Pod endpoints
-- Service accounts exists and cert CNs match with account's usernames. **_Note: The team is working on a integration-provisioning module that will automate this process; until further notice, please contact Symphony Support to get your Symphony integration deployed on your pod, as the pod will need an exact match of service account name, certs and app name in the pod for your app to be visible in your pod and usable._**
+- Service accounts exists and cert CNs match with account's usernames. **_Note: The team is working on a integration-provisioning module that will automate this process; until further notice, please contact [Symphony Support](https://symphony.com/support) to get your Symphony integration deployed on your pod, as the pod will need an exact match of service account name, certs and app name in the pod for your app to be visible in your pod and usable._**
 - `./env.sh`, `./application.yaml` and `./certs/` are ignored by Git and don't end up in any code repository
 
 2. Run the integrations
@@ -107,9 +155,9 @@ ngrok http -subdomain=my.static.subdomain 8080
 
 Adjust your [bundle.json](src/main/webapp/bundle.json) located src/main/webapp/ with the URL you are exposing via ngrok, the configuration and bot id's, and the application context.
 
-**_Note: The team is working on a integration-provisioning module that will automate this process; until further notice, please contact Symphony Support to get your configuration and bot id's.
+**_Note: The team is working on an integration-provisioning module that will automate this process; until further notice, please contact Symphony Support to get your configuration and bot id's.
 
-For the application context, you should always user app/<your app id> provided in the env.sh. That id should also match what you have on [application-universal.yml](src/main/resources/application-universal.yml)
+For the application context, you should always use app/<your app id> provided in the env.sh. That id should also match what you have on [application-universal.yml](src/main/resources/application-universal.yml)
 
 For instance, see apps/universal present in the URL's for the controller.html and appstore-logo.png, as well as in the **context** query parameter for the controller:
 
