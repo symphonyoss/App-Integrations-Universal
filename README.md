@@ -100,11 +100,11 @@ You can even send tables:<br/>
 You’ll build an integration module to be used with the [Integration Bridge](https://github.com/symphonyoss/App-Integrations-Core).
 
 ## What you’ll need
-* JDK 1.8
-* Maven 3.0.5+
-* Node 6.10
-* Gulp (globally installed)
-* Webpack (globally installed)
+* [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+* [Maven 3.0.5+](https://maven.apache.org/download.cgi)
+* [Node 6.10](https://nodejs.org/en/)
+* [Gulp (globally installed)](http://gulpjs.com/)
+* [Webpack (globally installed)](https://webpack.github.io/)
 
 ## Build with maven
 Universal WebHook Integration is compatible with Apache Maven 3.0.5 or above. If you don’t already have Maven installed you can follow the instructions at maven.apache.org.
@@ -128,7 +128,7 @@ open env.sh
 Make sure that
 - Paths and passwords are correct
 - You can reach all Symphony Pod endpoints
-- Service accounts exists and cert CNs match with account's usernames. **_Note: The team is working on a integration-provisioning module that will automate this process; until further notice, please contact Symphony Support to get your Symphony integration deployed on your pod, as the pod will need an exact match of service account name, certs and app name in the pod for your app to be visible in your pod and usable._**
+- Service accounts exists and cert CNs match with account's usernames. **_Note: The team is working on a integration-provisioning module that will automate this process; until further notice, please contact [Symphony Support](https://symphony.com/support) to get your Symphony integration deployed on your pod, as the pod will need an exact match of service account name, certs and app name in the pod for your app to be visible in your pod and usable._**
 - `./env.sh`, `./application.yaml` and `./certs/` are ignored by Git and don't end up in any code repository
 
 2. Run the integrations
@@ -157,7 +157,7 @@ Adjust your [bundle.json](src/main/webapp/bundle.json) located src/main/webapp/ 
 
 **_Note: The team is working on an integration-provisioning module that will automate this process; until further notice, please contact Symphony Support to get your configuration and bot id's.
 
-For the application context, you should always user app/<your app id> provided in the env.sh. That id should also match what you have on [application-universal.yml](src/main/resources/application-universal.yml)
+For the application context, you should always use app/<your app id> provided in the env.sh. That id should also match what you have on [application-universal.yml](src/main/resources/application-universal.yml)
 
 For instance, see apps/universal present in the URL's for the controller.html and appstore-logo.png, as well as in the **context** query parameter for the controller:
 
