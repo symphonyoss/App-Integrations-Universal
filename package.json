@@ -1,6 +1,6 @@
 {
   "name": "symphony-integration-universal",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "description": "Symphony App Integrations - Universal Webhook",
   "main": "index.js",
   "scripts": {
