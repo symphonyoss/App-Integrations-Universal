@@ -31,14 +31,12 @@ template in the "message" form field and the Entity JSON in the "data" form fiel
 ```xml
 <messageML>
     <div class="entity" data-entity-id="zapierPostMessage">
-        <card class="barStyle" iconSrc="${entity['zapierPostMessage'].message.icon}">
-            <header>
-                <span>${entity['zapierPostMessage'].message.header}</span>
+        <card class="barStyle">
+            <header>        
+	      <span>${entity['zapierPostMessage'].message.header}</span>
             </header>
             <body>
-                <div class="labelBackground badge">
-                    <span>${entity['zapierPostMessage'].message.body}</span>
-                </div>
+              <span>${entity['zapierPostMessage'].message.body}</span>    
             </body>
         </card>
     </div>
@@ -54,13 +52,15 @@ template in the "message" form field and the Entity JSON in the "data" form fiel
 		"message" : {
 		    "type": "com.symphony.integration.zapier.event.message",
 		    "version": "1.0",
-		    "header": "Test Message Header: Trello card Test Trello created",
-		    "body": "Test Message Body:<br/>* Card Test Trello have just been created",
-		    "icon": "http://icon.com/icon"
+		    "header": "New Trello Card Created",
+		    "body": "Card Name: Card added for symphony innovate<br/>Card Link: https://trello.com/c/8Md51YdW/15-card-added-for-symphony-innovate"
 		}
 	}
 }
 ```
+When rendered, the above MessageML v2 example will appear like so:
+
+![Rendered MessageML v2](src/docs/images/sample_universal_rendered_v2.png)
 
 To send legacy messages using MessageMLV1 you can use the following techniques:
 
@@ -93,14 +93,7 @@ You can even send tables:<br/>
 <table><tr><td>header1</td><td>header2</td></tr><tr><td>info1</td><td>info2</td></tr><tr><td>info1</td><td>info2</td></tr><tr><td>info1</td><td>info2</td></tr></table>
 </messageML>
 ```
-
-#### What it looks like when rendered in Symphony platform
-
-* MessageML v2
-
-![Rendered MessageML v2](src/docs/images/sample_universal_rendered_v2.png)
-
-* Legacy MessageML v1
+When rendered, the above MessageML v1 example will appear like so:
 
 ![Rendered Message](src/docs/images/sample_universal_rendered.png)
 
