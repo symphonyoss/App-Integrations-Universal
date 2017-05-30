@@ -73,7 +73,7 @@ Your message will need to be compliant with Symphony [MessageML v1](https://rest
 
 * MessageML v1
 
-##Testing with Postman for MessageMLv1
+# Testing with Postman for MessageMLv1
 [Postman](http://getpostman.com) is an application that makes it easy to test HTTP requests.
 
 1. Download and install Postman.
