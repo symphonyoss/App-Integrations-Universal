@@ -73,6 +73,16 @@ Your message will need to be compliant with Symphony [MessageML v1](https://rest
 
 * MessageML v1
 
+##Testing with Postman for MessageMLv1
+[Postman](http://getpostman.com) is an application that makes it easy to test HTTP requests.
+
+1. Download and install Postman.
+2. Copy and paste your webhook URL into Postman
+3. Change the HTTP method to POST
+4. Click Body then select raw.
+5. Compose a messageML document in the body of the HTTP request. You can use the code samples above for pre-formmated messages.
+6. Click Send.
+
 ```sh
 <messageML>
 This is an example of the sort of text that you can fit within the Universal Webhook Integration. Your service can post updates here!<br/>
