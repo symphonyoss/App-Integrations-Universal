@@ -15,6 +15,8 @@ The Universal Webhook on the other hand does not support any special events, and
 
 #### How to send messages into Symphony using the universal webhook
 
+The Universal Webhook Integration can accept MessageMLv2 or legacy MessageMLv1.
+
 It deals with messages in the `xml`, `x-www-form-urlencode`, and `form-data` formats.
 
 To send messages using messageMLv2 you can use the following technique:
