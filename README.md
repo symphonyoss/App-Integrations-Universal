@@ -73,8 +73,6 @@ To send legacy messages using MessageMLV1 you can use the following techniques:
 
 Your message will need to be compliant with Symphony [MessageML v1](https://rest-api.symphony.com/docs/message-format/)
 
-* MessageML v1
-
 # Testing with Postman for MessageMLv1
 [Postman](http://getpostman.com) is an application that makes it easy to test HTTP requests.
 
@@ -82,7 +80,7 @@ Your message will need to be compliant with Symphony [MessageML v1](https://rest
 2. Copy and paste your webhook URL into Postman
 3. Change the HTTP method to POST
 4. Click Body then select raw.
-5. Compose a messageML document in the body of the HTTP request. You can use the code samples above for pre-formmated messages.
+5. Compose a messageML document in the body of the HTTP request. You can use the code samples below for pre-formatted messages.
 6. Click Send.
 
 ```sh
