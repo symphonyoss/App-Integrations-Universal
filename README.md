@@ -15,6 +15,8 @@ The Universal Webhook on the other hand does not support any special events, and
 
 #### How to send messages into Symphony using the universal webhook
 
+The Universal Webhook Integration can accept MessageMLv2 or legacy MessageMLv1.
+
 It deals with messages in the `xml`, `x-www-form-urlencode`, and `form-data` formats.
 
 To send messages using messageMLv2 you can use the following technique:
@@ -71,7 +73,15 @@ To send legacy messages using MessageMLV1 you can use the following techniques:
 
 Your message will need to be compliant with Symphony [MessageML v1](https://rest-api.symphony.com/docs/message-format/)
 
-* MessageML v1
+# Testing with Postman for MessageMLv1
+[Postman](http://getpostman.com) is an application that makes it easy to test HTTP requests.
+
+1. Download and install Postman.
+2. Copy and paste your webhook URL into Postman
+3. Change the HTTP method to POST
+4. Click Body then select raw.
+5. Compose a messageML document in the body of the HTTP request. You can use the code samples below for pre-formatted messages.
+6. Click Send.
 
 ```sh
 <messageML>
