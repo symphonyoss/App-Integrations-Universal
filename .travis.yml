@@ -20,18 +20,32 @@
 # under the License.
 #
 
-sudo: required
-dist: trusty
-language: node_js
-node_js:
-  - "6.10"
+language: java
+
+before_install:
+  - "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.2/install.sh | bash"
+  - "nvm install 6.10"
+  - "nvm use 6.10"
+  - "npm update -g npm"
+
+install: true
+
+jdk:
+  - oraclejdk8
+
+env:
+  global:
+    - secure: "sBlTcgueSir9yRcuBivjrpIp7SYwEuqwePwnKyZADNqnvDpDKUrLzvyyjUrx+Mq8yBApi5qc5/Y7rtm4goTpP8QoVDjIW+ESyLPWrvbxacGGU7SVQwqoDLdd608F022iilBuO4hclHS7SL7ReklB2YKc77GDcBLk5U+lQr55S+0qFuqBBc2gZTpjHc/DzQGqTHHOzs3i2onfi/M75PsAN80ajm6FzSpbyMYKu82IpIOBKiPSeUcEf4OUIQPyuFTf6VJS5K/ZzyV08ajM6XcIwq3yVHD/9lEW7AbCYKRdrSyBC1PeXC8xvsIp1KPtYJbqV6dmkvaZpX2a8wSke8suF0xZCf5FfXzTwIT0V0Bxel7bpBR3POwq79E8MM0tSCzhhVSWGA+igv0TQnDPlPmcj37t89IwVr6Vu360/9QPCCGfJjr3N6/aIS7Ldz3CGlEofr/R2LVg5awl2W/JZgaKrW9hCjlFB+gDE0GkbCuAA4Ws2zlgZRBTOPg3/QMglaLNySPnjrsQWR8RT3X8P/2LEbRmqIdC+UhBBpNY0SnNl6NnSX10oWjcWdOLSxrw+5sBzhhAz8Ejud6mkCO666ZiwzmsoOoL0lQDDfZw3d0vNhSVvyJ41ytDhXbfDEW4/ACZ+wcYNfURwXnsobAaKOQoQS5OFxwZTbfKNbsB+jMW4tk="
 
 addons:
-  apt:
-    packages:
-      - openjdk-8-jdk
-      - maven
-      - rpm
+  coverity_scan:
+    project:
+      name: "symphonyoss/App-Integrations-Universal"
+      description: "Build submitted via Travis CI"
+    notification_email: $COVERITY_NOTIFICATION_EMAIL
+    build_command_prepend: "mvn clean"
+    build_command:   "mvn -Denv=dev -DsymphonySkipUnitTests=true install"
+    branch_pattern: $COVERITY_BRANCH_PATTERN
 
 script:
 - "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ dev ]]; then mvn clean deploy -Pversioneye -DtransitiveDependencies=true --settings settings.xml ; fi"
