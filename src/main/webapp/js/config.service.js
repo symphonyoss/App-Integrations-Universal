@@ -1,4 +1,6 @@
 export default ({
+  appId: 'simpleWebHookIntegration',
+  appContext: 'apps/universal',
   appTitle: 'Universal Webhook',
   appName: 'Universal Webhook',
   appSubTitle: 'Universal Webhook Integration',
