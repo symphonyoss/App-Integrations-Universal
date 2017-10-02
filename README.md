@@ -86,7 +86,7 @@ Both MessageMLv1 and MessageMLv2 uses these common three steps:
 2. Copy and paste your webhook URL into Postman
 3. Change the HTTP method to POST
 
-##Testing with MessageMLv1
+## Testing with MessageMLv1
 
 1. Click Body then select raw.
 2. Compose a messageML document in the body of the HTTP request. You can use the code samples below for pre-formatted messages.
@@ -117,7 +117,7 @@ When rendered, the above MessageML v1 example will appear like so:
 
 ![Rendered Message](src/docs/images/sample_universal_rendered_v1.png)
 
-##Testing with MessageMLv2
+## Testing with MessageMLv2
 
 1. Click Body then select form-data.
 2. Add a key named "data" with the following value:
