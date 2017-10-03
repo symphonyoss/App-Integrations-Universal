@@ -16,25 +16,25 @@ If you have a service that can be configured to send webhooks, all you have to d
 ## What formats and events it support and what it produces
 Every integration will receive a message sent in a specific format (depending on the system it ingests) and will usually convert it into a Symphony MessageML before it reaches the Symphony platform. It will also, usually, identify the kind of message based on an "event" identifier, which varies based on the third-party system.
 
-The Universal Webhook on the other hand does not support any special events, and it merely forwards the message received (if valid). You can send in either messageMLv2 content, or legacy messageMLv1 content.
+The Universal Webhook on the other hand does not support any special events, and it merely forwards the message received (if valid). You can send in either MessageML v2 content, or legacy MessageML v1 content.
 
 #### How to send messages into Symphony using the universal webhook
 
-The Universal Webhook Integration can accept MessageMLv2 or legacy MessageMLv1.
+The Universal Webhook Integration can accept MessageML v2 or legacy MessageML v1.
 
 It deals with messages in the `xml`, `x-www-form-urlencode`, and `form-data` formats.
 
-To send messages using messageMLv2 you can use the following technique:
+To send messages using MessageML v2 you can use the following technique:
 
-* Send your payload as `form-data`. You'll need to set the Content-Type to `multipart/form-data` and submit the messageML v2
+* Send your payload as `form-data`. You'll need to set the Content-Type to `multipart/form-data` and submit the MessageML v2
 template in the "message" form field and the Entity JSON in the "data" form field. This option is only available when
  the Integration Bridge posts messages through the Agent that has version equal or greater than '1.46.0'
  
-Your message will need to be compliant with Symphony [MessageML v2](https://symphonyoss.atlassian.net/wiki/display/WGFOS/MessageML+V2+Draft+Proposal+-+For+Discussion)
+Your message will need to be compliant with Symphony [MessageML v2](https://rest-api.symphony.com/docs/messagemlv2)
  
-Here is an example of a message sent through the Universal Webhook, that looks like a Zapier card. You can customize the MessageMLv2 and Entity JSON to your liking, as long as it is valid, it will be passed through and rendered.
+Here is an example of a message sent through the Universal Webhook, that looks like a Zapier card. You can customize the MessageML v2 and Entity JSON to your liking, as long as it is valid, it will be passed through and rendered.
  
-* This is the messageML v2 that the Universal Webhook integration received, which defines the layout of the card and how the front end will render it within Symphony:
+* This is the MessageML v2 that the Universal Webhook integration received, which defines the layout of the card and how the front end will render it within Symphony:
 
 ```xml
 <messageML>
@@ -70,7 +70,7 @@ When rendered, the above MessageML v2 example will appear like so:
 
 ![Rendered MessageML v2](src/docs/images/sample_universal_rendered_v2.png)
 
-To send legacy messages using MessageMLV1 you can use the following techniques:
+To send legacy messages using MessageML v1 you can use the following techniques:
 
 * If you chose `xml`, you'll need to set the Content-Type to `application/xml` and submit the messageML payload in the message body.
 
@@ -80,44 +80,13 @@ Your message will need to be compliant with Symphony [MessageML v1](https://rest
 
 # Testing with Postman
 [Postman](http://getpostman.com) is an application that makes it easy to test HTTP requests.
-Both MessageMLv1 and MessageMLv2 uses these common three steps:
+Both MessageML v1 and MessageML v2 uses these common three steps:
 
 1. Download and install Postman.
 2. Copy and paste your webhook URL into Postman
 3. Change the HTTP method to POST
 
-## Testing with MessageMLv1
-
-1. Click Body then select raw.
-2. Compose a messageML document in the body of the HTTP request. You can use the code samples below for pre-formatted messages.
-3. Click Send.
-
-```sh
-<messageML>
-This is an example of the sort of text that you can fit within the Universal Webhook Integration. Your service can post updates here!<br/>
-
-<b>You can also bold me</b>: Or not.<br/>
-
-<b>You can submit links as well: </b><a href="https://google.com" /><br/>
-
-<i>You can make text render in italic font</i><br/>
-Labels can also come through: <hash tag="label"/> and you can make tickers appear too: <cash tag="GOOG"/><br/>
-
-You can directly mention people using email matching: <mention email="vincent@symphony.com"/><br/>
-
-You can send lists too:<br/>
-<ul><li>item1</li><li>item2</li></ul><br/>
-
-You can even send tables:<br/>
-
-<table><tr><td>header1</td><td>header2</td></tr><tr><td>info1</td><td>info2</td></tr><tr><td>info1</td><td>info2</td></tr><tr><td>info1</td><td>info2</td></tr></table>
-</messageML>
-```
-When rendered, the above MessageML v1 example will appear like so:
-
-![Rendered Message](src/docs/images/sample_universal_rendered_v1.png)
-
-## Testing with MessageMLv2
+## Testing with MessageML v2
 
 1. Click Body then select form-data.
 2. Add a key named "data" with the following value:
@@ -164,12 +133,12 @@ When rendered, the above MessageML v2 example will appear like so:
 
 ![Rendered MessageML v2](src/docs/images/sample_universal_rendered_v2_2.png)
    
-   Note that the body field on the data may contain the same tags as the MessageMLv1 with the exception of:
+   Note that the "body" field in the value of the "data" key may contain the same tags as the MessageML v1 with the exception of:
    * Links
    * Mentions
    * Labels
    
-   To use those features, their tags must be included on the message key inside the body tag, like the following example:
+   To use those features, their tags must be included inside the "body" tag in the value of the "message" key, as in the following example:
    
       
        <messageML>
@@ -193,6 +162,39 @@ When rendered, the above MessageML v2 example will appear like so:
 When rendered, the above example will appear like so:       
    
 ![Rendered MessageML v2](src/docs/images/sample_universal_rendered_v2_with_link.png)
+
+## Testing with MessageML v1
+
+1. Click Body then select raw.
+2. Compose a messageML document in the body of the HTTP request. You can use the code samples below for pre-formatted messages.
+3. Click Send.
+
+```sh
+<messageML>
+This is an example of the sort of text that you can fit within the Universal Webhook Integration. Your service can post updates here!<br/>
+
+<b>You can also bold me</b>: Or not.<br/>
+
+<b>You can submit links as well: </b><a href="https://google.com" /><br/>
+
+<i>You can make text render in italic font</i><br/>
+Labels can also come through: <hash tag="label"/> and you can make tickers appear too: <cash tag="GOOG"/><br/>
+
+You can directly mention people using email matching: <mention email="vincent@symphony.com"/><br/>
+
+You can send lists too:<br/>
+<ul><li>item1</li><li>item2</li></ul><br/>
+
+You can even send tables:<br/>
+
+<table><tr><td>header1</td><td>header2</td></tr><tr><td>info1</td><td>info2</td></tr><tr><td>info1</td><td>info2</td></tr><tr><td>info1</td><td>info2</td></tr></table>
+</messageML>
+```
+When rendered, the above MessageML v1 example will appear like so:
+
+![Rendered Message](src/docs/images/sample_universal_rendered_v1.png)
+
+
 
      
    
