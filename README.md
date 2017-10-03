@@ -78,15 +78,19 @@ To send legacy messages using MessageMLV1 you can use the following techniques:
 
 Your message will need to be compliant with Symphony [MessageML v1](https://rest-api.symphony.com/docs/message-format/)
 
-# Testing with Postman for MessageMLv1
+# Testing with Postman
 [Postman](http://getpostman.com) is an application that makes it easy to test HTTP requests.
+Both MessageMLv1 and MessageMLv2 uses these common three steps:
 
 1. Download and install Postman.
 2. Copy and paste your webhook URL into Postman
 3. Change the HTTP method to POST
-4. Click Body then select raw.
-5. Compose a messageML document in the body of the HTTP request. You can use the code samples below for pre-formatted messages.
-6. Click Send.
+
+## Testing with MessageMLv1
+
+1. Click Body then select raw.
+2. Compose a messageML document in the body of the HTTP request. You can use the code samples below for pre-formatted messages.
+3. Click Send.
 
 ```sh
 <messageML>
@@ -111,4 +115,84 @@ You can even send tables:<br/>
 ```
 When rendered, the above MessageML v1 example will appear like so:
 
-![Rendered Message](src/docs/images/sample_universal_rendered.png)
+![Rendered Message](src/docs/images/sample_universal_rendered_v1.png)
+
+## Testing with MessageMLv2
+
+1. Click Body then select form-data.
+2. Add a key named "data" with the following value:
+   
+   ```sh
+   {
+        "testMessage": {
+          "type": "com.symphony.integration.test.event",
+          "version": "1.0",
+          "message": {
+            "type": "com.symphony.integration.test.message",
+            "version": "1.0",
+            "header": "This is a header",
+            "body": "This is an example of text"
+          }
+        }
+      }
+   ```
+
+3. Add a key named "message" with the following value:    
+   
+   ```sh
+    <messageML>
+        <div class="entity" data-entity-id="testMessage">
+            <card class="barStyle">
+                <header>
+                    <span>${entity['testMessage'].message.header}</span>
+                </header>
+                <#if (entity['testMessage'].message.body)??>
+                    <body>
+                        <div class="labelBackground badge">
+                            <span>${entity['testMessage'].message.body}</span>
+                        </div>
+                    </body>
+                </#if>
+            </card>
+        </div>
+    </messageML>
+   ```
+   
+4. Hit Send
+
+When rendered, the above MessageML v2 example will appear like so:
+
+![Rendered MessageML v2](src/docs/images/sample_universal_rendered_v2_2.png)
+   
+   Note that the body field on the data may contain the same tags as the MessageMLv1 with the exception of:
+   * Links
+   * Mentions
+   * Labels
+   
+   To use those features, their tags must be included on the message key inside the body tag, like the following example:
+   
+      
+       <messageML>
+           <div class="entity" data-entity-id="testMessage">
+               <card class="barStyle">
+                   <header>
+                       <span>${entity['testMessage'].message.header}</span>
+                   </header>
+                   <#if (entity['testMessage'].message.body)??>
+                       <body>
+                           <div class="labelBackground badge">
+                               <span>${entity['testMessage'].message.body}</span>
+                               You can submit links as well: <a href="https://google.com" /><br/>
+                           </div>
+                       </body>
+                   </#if>
+               </card>
+           </div>
+       </messageML>
+       
+When rendered, the above example will appear like so:       
+   
+![Rendered MessageML v2](src/docs/images/sample_universal_rendered_v2_with_link.png)
+
+     
+   
