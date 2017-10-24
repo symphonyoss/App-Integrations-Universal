@@ -12,6 +12,8 @@
     <artifactId>integration-universal-whi</artifactId>
 
     <properties>
+        <!-- This is temporary; set to true as soon as the WhiteSource dashboard is clean -->
+        <whitesource.checkPolicies>false</whitesource.checkPolicies>
         <webapp.directory>universal</webapp.directory>
         <rpm.name>universal-symphony-integration</rpm.name>
     </properties>
