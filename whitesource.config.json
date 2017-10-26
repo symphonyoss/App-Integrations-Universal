@@ -1,6 +1,6 @@
 {
-  "checkPolicies":false,
-  "productName":"App-Integrations-Universal",
-  "projectName":"universal-npm-package",
+  "checkPolicies": false,
+  "productName": "integration-universal-whi",
+  "projectName": "universal-npm-package",
   "devDep": false
 }
