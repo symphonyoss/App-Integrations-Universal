@@ -55,7 +55,8 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1",
-    "webpack-stream": "^3.2.0"
+    "webpack-stream": "^3.2.0",
+    "whitesource": "^1.0.9"
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",

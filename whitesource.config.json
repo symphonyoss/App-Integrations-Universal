@@ -1,5 +1,5 @@
 {
-  "checkPolicies":false, // set to true when NPM issues are fixed
+  "checkPolicies":true,
   "productName":"App-Integrations-Universal",
   "projectName":"universal-npm-package",
   "devDep": false
