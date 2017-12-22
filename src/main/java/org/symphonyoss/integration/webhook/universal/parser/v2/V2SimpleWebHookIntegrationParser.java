@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 import org.symphonyoss.integration.entity.MessageMLParseException;
 import org.symphonyoss.integration.model.message.Message;
 import org.symphonyoss.integration.model.message.MessageMLVersion;
+import org.symphonyoss.integration.parser.SafeStringUtils;
 import org.symphonyoss.integration.webhook.WebHookPayload;
 import org.symphonyoss.integration.webhook.exception.WebHookParseException;
 import org.symphonyoss.integration.webhook.parser.WebHookParser;
@@ -57,12 +58,14 @@ public class V2SimpleWebHookIntegrationParser implements WebHookParser {
     if (StringUtils.isEmpty(messageML)) {
       throw new MessageMLParseException("Invalid message format. No messageML defined");
     }
+    messageML = SafeStringUtils.escapeAmpersand(messageML);
 
     message.setMessage(messageML);
 
     String entityJSON = parameters.get(DATA);
 
     if (StringUtils.isNotEmpty(entityJSON)) {
+      entityJSON = SafeStringUtils.escapeAmpersand(entityJSON);
       message.setData(entityJSON);
     }
 

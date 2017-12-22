@@ -30,6 +30,7 @@ import org.symphonyoss.integration.entity.MessageMLParseException;
 import org.symphonyoss.integration.event.MessageMLVersionUpdatedEventData;
 import org.symphonyoss.integration.model.message.Message;
 import org.symphonyoss.integration.model.message.MessageMLVersion;
+import org.symphonyoss.integration.parser.SafeStringUtils;
 import org.symphonyoss.integration.webhook.WebHookPayload;
 import org.symphonyoss.integration.webhook.exception.WebHookParseException;
 import org.symphonyoss.integration.webhook.universal.parser.SimpleWebHookParserFactory;
@@ -91,6 +92,7 @@ public class SimpleWebHookIntegrationTest {
     resolver.handleMessageMLVersionUpdatedEvent(eventData);
 
     String body = FileUtils.readMessageMLFile(VALID_MESSAGEML_FILENAME);
+    body = SafeStringUtils.escapeAmpersand(body);
 
     WebHookPayload payload = new WebHookPayload(Collections.<String, String>emptyMap(),
         Collections.<String, String>emptyMap(), body);

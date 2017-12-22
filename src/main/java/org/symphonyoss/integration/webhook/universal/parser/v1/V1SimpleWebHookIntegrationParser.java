@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import org.symphonyoss.integration.entity.MessageMLParseException;
 import org.symphonyoss.integration.model.message.Message;
 import org.symphonyoss.integration.model.message.MessageMLVersion;
+import org.symphonyoss.integration.parser.SafeStringUtils;
 import org.symphonyoss.integration.webhook.WebHookPayload;
 import org.symphonyoss.integration.webhook.exception.WebHookParseException;
 import org.symphonyoss.integration.webhook.parser.WebHookParser;
@@ -53,6 +54,7 @@ public class V1SimpleWebHookIntegrationParser implements WebHookParser {
     if (body == null) {
       throw new MessageMLParseException("Invalid message format. Message: " + payload);
     }
+    body = SafeStringUtils.escapeAmpersand(body);
 
     Message message = new Message();
     message.setMessage(body);
@@ -61,6 +63,5 @@ public class V1SimpleWebHookIntegrationParser implements WebHookParser {
 
     return message;
   }
-
 }
 
