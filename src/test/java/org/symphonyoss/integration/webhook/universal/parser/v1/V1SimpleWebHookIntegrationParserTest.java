@@ -23,6 +23,7 @@ import org.junit.Test;
 import org.symphonyoss.integration.entity.MessageMLParseException;
 import org.symphonyoss.integration.model.message.Message;
 import org.symphonyoss.integration.model.message.MessageMLVersion;
+import org.symphonyoss.integration.parser.SafeStringUtils;
 import org.symphonyoss.integration.webhook.WebHookPayload;
 import org.symphonyoss.integration.webhook.exception.WebHookParseException;
 import org.symphonyoss.integration.webhook.universal.FileUtils;
@@ -56,6 +57,7 @@ public class V1SimpleWebHookIntegrationParserTest {
   @Test
   public void testValidBody() throws WebHookParseException, IOException {
     String messageML = FileUtils.readMessageMLFile(VALID_MESSAGEML_FILENAME);
+    messageML = SafeStringUtils.escapeAmpersand(messageML);
     WebHookPayload payload = new WebHookPayload(Collections.<String, String>emptyMap(), Collections.<String, String>emptyMap(), messageML);
 
     Message result = parser.parse(payload);
@@ -66,6 +68,7 @@ public class V1SimpleWebHookIntegrationParserTest {
   @Test
   public void testValidForm() throws WebHookParseException, IOException {
     String messageML = FileUtils.readMessageMLFile(VALID_MESSAGEML_FILENAME);
+    messageML = SafeStringUtils.escapeAmpersand(messageML);
 
     Map<String, String> parameters = new HashMap<>();
     parameters.put(V1SimpleWebHookIntegrationParser.PAYLOAD, messageML);

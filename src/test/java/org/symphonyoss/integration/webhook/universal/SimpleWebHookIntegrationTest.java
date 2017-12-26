@@ -30,6 +30,7 @@ import org.symphonyoss.integration.entity.MessageMLParseException;
 import org.symphonyoss.integration.event.MessageMLVersionUpdatedEventData;
 import org.symphonyoss.integration.model.message.Message;
 import org.symphonyoss.integration.model.message.MessageMLVersion;
+import org.symphonyoss.integration.parser.SafeStringUtils;
 import org.symphonyoss.integration.webhook.WebHookPayload;
 import org.symphonyoss.integration.webhook.exception.WebHookParseException;
 import org.symphonyoss.integration.webhook.universal.parser.SimpleWebHookParserFactory;
@@ -91,12 +92,13 @@ public class SimpleWebHookIntegrationTest {
     resolver.handleMessageMLVersionUpdatedEvent(eventData);
 
     String body = FileUtils.readMessageMLFile(VALID_MESSAGEML_FILENAME);
+    String body2 = SafeStringUtils.escapeAmpersand(body);
 
     WebHookPayload payload = new WebHookPayload(Collections.<String, String>emptyMap(),
         Collections.<String, String>emptyMap(), body);
 
     Message result = simpleWebHookIntegration.parse(payload);
-    assertEquals(body, result.getMessage());
+    assertEquals(body2, result.getMessage());
     assertEquals(MessageMLVersion.V1, result.getVersion());
   }
 
@@ -109,7 +111,9 @@ public class SimpleWebHookIntegrationTest {
     headers.put(CONTENT_TYPE.toLowerCase(), MediaType.MULTIPART_FORM_DATA);
 
     String messageML = FileUtils.readMessageMLFile(VALID_MESSAGEML_V2_FILENAME);
+    String messageML2 = SafeStringUtils.escapeAmpersand(messageML);
     String entityJSON = FileUtils.readJsonFromFile(VALID_ENTITY_JSON_FILENAME);
+    String entityJSON2 = SafeStringUtils.escapeAmpersand(entityJSON);
 
     Map<String, String> parameters = new HashMap<>();
     parameters.put(V2SimpleWebHookIntegrationParser.MESSAGE, messageML);
@@ -119,8 +123,8 @@ public class SimpleWebHookIntegrationTest {
 
     Message result = simpleWebHookIntegration.parse(payload);
 
-    assertEquals(messageML, result.getMessage());
-    assertEquals(entityJSON, result.getData());
+    assertEquals(messageML2, result.getMessage());
+    assertEquals(entityJSON2, result.getData());
     assertEquals(MessageMLVersion.V2, result.getVersion());
   }
 }

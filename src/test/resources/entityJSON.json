@@ -5,7 +5,7 @@
     "message": {
       "type": "com.symphony.integration.test.event.v2.testMessage",
       "version": "1.0",
-      "header": "New message",
+      "header": "New message &gt; & something",
       "body": "Message body"
     }
   }
