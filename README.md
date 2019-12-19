@@ -1,4 +1,4 @@
-[![Symphony Software Foundation - Incubating](https://cdn.rawgit.com/symphonyoss/contrib-toolbox/master/images/ssf-badge-incubating.svg)](https://symphonyoss.atlassian.net/wiki/display/FM/Incubating)
+[![FINOS - Archived](https://cdn.jsdelivr.net/gh/finos/contrib-toolbox@master/images/badge-archived.svg)](https://finosfoundation.atlassian.net/wiki/display/FINOS/Archived)
 [![Build Status](https://travis-ci.org/symphonyoss/App-Integrations-Universal.svg?branch=dev)](https://travis-ci.org/symphonyoss/App-Integrations-Universal)
 [![Dependencies](https://www.versioneye.com/user/projects/58d049f86893fd0037a30b1a/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/58d049f86893fd0037a30b1a)
 [![Validation Status](https://scan.coverity.com/projects/12827/badge.svg?flat=1)](https://scan.coverity.com/projects/symphonyoss-app-integrations-universal)
